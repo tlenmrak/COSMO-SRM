@@ -3,16 +3,40 @@ databaseChangeLog:
       id: 004-suppliers-offers
       author: you
       changes:
+
         - createTable:
             tableName: supplier
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
-              - column: { name: phone, type: varchar(64) }
-              - column: { name: email, type: varchar(255) }
-              - column: { name: notes, type: text }
-              - column: { name: is_active, type: boolean, constraints: { nullable: false } }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(64)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: notes
+                  type: text
+              - column:
+                  name: is_active
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addUniqueConstraint:
             tableName: supplier
@@ -22,15 +46,48 @@ databaseChangeLog:
         - createTable:
             tableName: supplier_material
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: supplier_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: raw_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: package_size, type: numeric(14,6), constraints: { nullable: false } }
-              - column: { name: package_unit, type: varchar(32), constraints: { nullable: false } }
-              - column: { name: sku, type: varchar(128) }
-              - column: { name: link, type: varchar(2048) }
-              - column: { name: is_active, type: boolean, constraints: { nullable: false } }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: supplier_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: raw_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: package_size
+                  type: numeric(14,6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: package_unit
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sku
+                  type: varchar(128)
+              - column:
+                  name: link
+                  type: varchar(2048)
+              - column:
+                  name: is_active
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addForeignKeyConstraint:
             baseTableName: supplier_material
@@ -50,18 +107,46 @@ databaseChangeLog:
             tableName: supplier_material
             indexName: ix_offer_raw
             columns:
-              - column: { name: raw_material_id }
+              - column:
+                  name: raw_material_id
 
         - createTable:
             tableName: supplier_material_price
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: supplier_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: price_per_package, type: numeric(14,6), constraints: { nullable: false } }
-              - column: { name: currency, type: varchar(8), constraints: { nullable: false } }
-              - column: { name: valid_from, type: date, constraints: { nullable: false } }
-              - column: { name: valid_to, type: date }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: supplier_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_per_package
+                  type: numeric(14,6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valid_from
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valid_to
+                  type: date
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addForeignKeyConstraint:
             baseTableName: supplier_material_price
@@ -74,15 +159,30 @@ databaseChangeLog:
             tableName: supplier_material_price
             indexName: ix_offer_price_offer_validfrom
             columns:
-              - column: { name: supplier_material_id }
-              - column: { name: valid_from }
+              - column:
+                  name: supplier_material_id
+              - column:
+                  name: valid_from
 
         - createTable:
             tableName: raw_material_default_offer
             columns:
-              - column: { name: raw_material_id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: supplier_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: raw_material_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: supplier_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addForeignKeyConstraint:
             baseTableName: raw_material_default_offer
@@ -101,10 +201,26 @@ databaseChangeLog:
         - createTable:
             tableName: batch_supplier_selection
             columns:
-              - column: { name: batch_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: raw_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: supplier_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: batch_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: raw_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: supplier_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addPrimaryKey:
             tableName: batch_supplier_selection

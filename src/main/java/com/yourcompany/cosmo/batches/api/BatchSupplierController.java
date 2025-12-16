@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -35,13 +36,11 @@ import java.util.UUID;
 )
 @RestController
 @RequestMapping("/api/batches/{batchId}")
+@RequiredArgsConstructor
 public class BatchSupplierController {
 
   private final BatchSupplierService service;
 
-  public BatchSupplierController(BatchSupplierService service) {
-    this.service = service;
-  }
 
   /**
    * Получить конфигурацию поставщиков для партии (для отображения в UI).

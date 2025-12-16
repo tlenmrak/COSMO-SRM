@@ -3,13 +3,29 @@ databaseChangeLog:
       id: 003-batches
       author: you
       changes:
+
         - createTable:
             tableName: batch_template
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
-              - column: { name: description, type: text }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addUniqueConstraint:
             tableName: batch_template
@@ -19,9 +35,21 @@ databaseChangeLog:
         - createTable:
             tableName: batch_template_item
             columns:
-              - column: { name: template_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: product_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: quantity, type: integer, constraints: { nullable: false } }
+              - column:
+                  name: template_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: integer
+                  constraints:
+                    nullable: false
 
         - addPrimaryKey:
             tableName: batch_template_item
@@ -45,11 +73,28 @@ databaseChangeLog:
         - createTable:
             tableName: batch
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: template_id, type: uuid }
-              - column: { name: status, type: varchar(32), constraints: { nullable: false } }
-              - column: { name: pricing_date, type: date }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: template_id
+                  type: uuid
+              - column:
+                  name: status
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pricing_date
+                  type: date
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addForeignKeyConstraint:
             baseTableName: batch
@@ -61,13 +106,40 @@ databaseChangeLog:
         - createTable:
             tableName: batch_overhead
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: batch_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: type, type: varchar(32), constraints: { nullable: false } }
-              - column: { name: amount, type: numeric(14,2), constraints: { nullable: false } }
-              - column: { name: currency, type: varchar(8), constraints: { nullable: false } }
-              - column: { name: comment, type: text }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: batch_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: numeric(14,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comment
+                  type: text
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addForeignKeyConstraint:
             baseTableName: batch_overhead
@@ -80,4 +152,5 @@ databaseChangeLog:
             tableName: batch_template_item
             indexName: ix_bti_template
             columns:
-              - column: { name: template_id }
+              - column:
+                  name: template_id

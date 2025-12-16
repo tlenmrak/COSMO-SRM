@@ -16,6 +16,13 @@ spring:
     password: cosmo
 
   liquibase:
+    enabled: true
+    drop-first: false
+    default-schema: public
+    liquibase-schema: public
+    url: jdbc:postgresql://localhost:5432/cosmo
+    user: cosmo
+    password: cosmo
     change-log: classpath:/db/changelog/db.changelog-master.yml
 
   security:
@@ -23,6 +30,12 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8081/realms/cosmo
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 logging:
   level:

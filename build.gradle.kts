@@ -27,6 +27,7 @@ dependencies {
 
   implementation ("org.projectlombok:lombok:1.18.34")
   annotationProcessor ("org.projectlombok:lombok:1.18.34")
+  implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("io.projectreactor:reactor-test")

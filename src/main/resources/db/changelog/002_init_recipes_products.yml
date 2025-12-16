@@ -3,22 +3,56 @@ databaseChangeLog:
       id: 002-recipes-products
       author: you
       changes:
+
         - createTable:
             tableName: recipe
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
-              - column: { name: status, type: varchar(32), constraints: { nullable: false } }
-              - column: { name: yield_amount, type: numeric(14,6) }
-              - column: { name: yield_unit, type: varchar(32) }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: yield_amount
+                  type: numeric(14,6)
+              - column:
+                  name: yield_unit
+                  type: varchar(32)
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - createTable:
             tableName: recipe_item
             columns:
-              - column: { name: recipe_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: raw_material_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: amount_gram, type: numeric(14,6), constraints: { nullable: false } }
+              - column:
+                  name: recipe_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: raw_material_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount_gram
+                  type: numeric(14,6)
+                  constraints:
+                    nullable: false
 
         - addPrimaryKey:
             tableName: recipe_item
@@ -42,12 +76,35 @@ databaseChangeLog:
         - createTable:
             tableName: product
             columns:
-              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
-              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
-              - column: { name: sku, type: varchar(64) }
-              - column: { name: recipe_id, type: uuid, constraints: { nullable: false } }
-              - column: { name: is_active, type: boolean, constraints: { nullable: false } }
-              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sku
+                  type: varchar(64)
+              - column:
+                  name: recipe_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
 
         - addUniqueConstraint:
             tableName: product
@@ -65,10 +122,12 @@ databaseChangeLog:
             tableName: recipe_item
             indexName: ix_recipe_item_recipe
             columns:
-              - column: { name: recipe_id }
+              - column:
+                  name: recipe_id
 
         - createIndex:
             tableName: product
             indexName: ix_product_recipe
             columns:
-              - column: { name: recipe_id }
+              - column:
+                  name: recipe_id
