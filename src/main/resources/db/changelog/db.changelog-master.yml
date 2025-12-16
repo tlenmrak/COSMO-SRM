@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001_init_raw_materials.yml
+  - include:
+      file: db/changelog/002_init_recipes_products.yml
+  - include:
+      file: db/changelog/003_init_batches.yml
+  - include:
+      file: db/changelog/004_init_suppliers.yml
+  - include:
+      file: db/changelog/005_init_manual_prices.yml

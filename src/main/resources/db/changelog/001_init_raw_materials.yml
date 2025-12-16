@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-raw-materials
+      author: you
+      changes:
+        - createTable:
+            tableName: raw_material
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
+              - column: { name: unit, type: varchar(32), constraints: { nullable: false } }
+              - column: { name: is_active, type: boolean, constraints: { nullable: false } }
+              - column: { name: notes, type: text }
+              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+
+        - addUniqueConstraint:
+            tableName: raw_material
+            columnNames: name
+            constraintName: uq_raw_material_name
+
+        - createTable:
+            tableName: raw_material_price
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: raw_material_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: price_per_gram, type: numeric(14,6), constraints: { nullable: false } }
+              - column: { name: currency, type: varchar(8), constraints: { nullable: false } }
+              - column: { name: valid_from, type: date, constraints: { nullable: false } }
+              - column: { name: valid_to, type: date }
+              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+
+        - addForeignKeyConstraint:
+            baseTableName: raw_material_price
+            baseColumnNames: raw_material_id
+            referencedTableName: raw_material
+            referencedColumnNames: id
+            constraintName: fk_price_raw_material
+
+        - createIndex:
+            tableName: raw_material_price
+            indexName: ix_price_raw_material_valid_from
+            columns:
+              - column: { name: raw_material_id }
+              - column: { name: valid_from }

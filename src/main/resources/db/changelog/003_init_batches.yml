@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-batches
+      author: you
+      changes:
+        - createTable:
+            tableName: batch_template
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: name, type: varchar(255), constraints: { nullable: false } }
+              - column: { name: description, type: text }
+              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+
+        - addUniqueConstraint:
+            tableName: batch_template
+            columnNames: name
+            constraintName: uq_batch_template_name
+
+        - createTable:
+            tableName: batch_template_item
+            columns:
+              - column: { name: template_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: product_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: quantity, type: integer, constraints: { nullable: false } }
+
+        - addPrimaryKey:
+            tableName: batch_template_item
+            columnNames: template_id, product_id
+            constraintName: pk_batch_template_item
+
+        - addForeignKeyConstraint:
+            baseTableName: batch_template_item
+            baseColumnNames: template_id
+            referencedTableName: batch_template
+            referencedColumnNames: id
+            constraintName: fk_bti_template
+
+        - addForeignKeyConstraint:
+            baseTableName: batch_template_item
+            baseColumnNames: product_id
+            referencedTableName: product
+            referencedColumnNames: id
+            constraintName: fk_bti_product
+
+        - createTable:
+            tableName: batch
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: template_id, type: uuid }
+              - column: { name: status, type: varchar(32), constraints: { nullable: false } }
+              - column: { name: pricing_date, type: date }
+              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+
+        - addForeignKeyConstraint:
+            baseTableName: batch
+            baseColumnNames: template_id
+            referencedTableName: batch_template
+            referencedColumnNames: id
+            constraintName: fk_batch_template
+
+        - createTable:
+            tableName: batch_overhead
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: batch_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: type, type: varchar(32), constraints: { nullable: false } }
+              - column: { name: amount, type: numeric(14,2), constraints: { nullable: false } }
+              - column: { name: currency, type: varchar(8), constraints: { nullable: false } }
+              - column: { name: comment, type: text }
+              - column: { name: created_at, type: timestamptz, constraints: { nullable: false } }
+
+        - addForeignKeyConstraint:
+            baseTableName: batch_overhead
+            baseColumnNames: batch_id
+            referencedTableName: batch
+            referencedColumnNames: id
+            constraintName: fk_overhead_batch
+
+        - createIndex:
+            tableName: batch_template_item
+            indexName: ix_bti_template
+            columns:
+              - column: { name: template_id }

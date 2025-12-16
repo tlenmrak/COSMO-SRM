@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cosmo-srm
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/cosmo
+    username: cosmo
+    password: cosmo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cosmo
+    username: cosmo
+    password: cosmo
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/cosmo
+
+logging:
+  level:
+    org.springframework.security: INFO
